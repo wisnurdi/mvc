@@ -1,7 +1,7 @@
 {
-    "name": "wisnurdi/tes",
+    "name": "wisnurdi/mvc",
     "description": "coba untuk dihubungkan ke packagist",
-    "homepage": "https://github.com/wisnurdi/tes",
+    "homepage": "https://github.com/wisnurdi/mvc",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "tes\\": "src/"
+            "mvc\\": "src/"
         }
     },
     "minimum-stability": "dev"
