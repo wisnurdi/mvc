@@ -1,0 +1,21 @@
+{
+    "name": "wisnurdi/tes",
+    "description": "coba untuk dihubungkan ke packagist",
+    "homepage": "https://github.com/wisnurdi/tes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wisnurdi",
+            "email": "wisnurdi@gmail.com",
+            "homepage": "https://wisnurdi.github.io",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "tes\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
