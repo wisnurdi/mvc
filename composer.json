@@ -14,7 +14,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "mvc\\": "src/"
+            "mvc\\": "src/",
+            "app\\": "app/"
         }
     },
     "minimum-stability": "dev"
