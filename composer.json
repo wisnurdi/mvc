@@ -1,6 +1,6 @@
 {
     "name": "wisnurdi/mvc",
-    "description": "coba untuk dihubungkan ke packagist",
+    "description": "Core aplikasi php sederhana untuk framework mvc",
     "homepage": "https://github.com/wisnurdi/mvc",
     "type": "library",
     "license": "MIT",
