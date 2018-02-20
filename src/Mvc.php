@@ -8,6 +8,7 @@ class Mvc {
 
 	public $db;
 	public $basepath;
+	public $isConnected = false; //status koneksi
 
 	function version()
 	{
@@ -16,24 +17,33 @@ class Mvc {
 		*/
 		return 'alpha 1.1 ;) - 3 November 2016';
 	}
+
+	function koneksikan(){
+		$config = $this->config;
+		if(isset($config['dbdriver']))
+		{
+			if($config['dbdriver']=='mysql')
+			{
+				try
+				{
+					$this->db = new \PDO('mysql:host='. $config['dbhost'] . ';dbname=' . $config['dbname'] . ';charset=utf8', $config['dbuser'], $config['dbpass']);
+					$this->isConnected = true;
+				}
+				catch(Exception $e)
+				{
+					var_dump($e->getMessage());
+					$this->isConnected = false;
+					die(Errors::show(1101, 'Koneksi gagal'));
+				}
+			}
+		}
+	}
 	
 	function __construct($config = null){
 		if($config)
 		{
 			$config = $this->configme($config);
-			if(isset($config['dbdriver']))
-				if($config['dbdriver']=='mysql')
-				{
-					try
-					{
-						$this->db = new \PDO('mysql:host='. $config['dbhost'] . ';dbname=' . $config['dbname'] . ';charset=utf8', $config['dbuser'], $config['dbpass']);
-					}
-					catch(Exception $e)
-					{
-						var_dump($e->getMessage());
-						die(Errors::show(1101,'Koneksi gagal'));
-					}
-				}
+
 		}
 		$this->basepath = $this->base_path();
 	}
@@ -47,9 +57,9 @@ class Mvc {
 		if(!isset($config['dbuser'])) $config['dbuser'] = 'root';
 		if(!isset($config['dbpass'])) $config['dbpass'] = '';
 		
-		DEFINE('DIR_M', (isset($config['dir_m'])?isset($config['dir_m']):dirname(__DIR__) .'/M/'));
-		DEFINE('DIR_V', (isset($config['dir_v'])?isset($config['dir_v']):dirname(__DIR__) .'/V/'));
-		DEFINE('DIR_C', (isset($config['dir_c'])?isset($config['dir_c']):dirname(__DIR__) .'/C/'));
+		// DEFINE('DIR_M', (isset($config['dir_m'])?isset($config['dir_m']):dirname(__DIR__) .'/M/'));
+		// DEFINE('DIR_V', (isset($config['dir_v'])?isset($config['dir_v']):dirname(__DIR__) .'/V/'));
+		// DEFINE('DIR_C', (isset($config['dir_c'])?isset($config['dir_c']):dirname(__DIR__) .'/C/'));
 
 		$this->config = $config;
 		return $config;
@@ -107,8 +117,12 @@ class Mvc {
 		// echo '<br>';
 		// var_dump(($_GET));
 		// die();
+		// require(dirname(__DIR__) . '../../../../app/C/'. ucfirst($this->controller) . 'C.php');
+		// require(DIR . 'app/C/'. ucfirst($this->controller) . 'C.php');
+		// var_dump(dirname(__DIR__) . '../../../../app/C/'. ucfirst($this->controller) . 'C.php');
 
-		$class = 'C\\' . ucfirst($this->controller) . 'C';
+		// $class = '\app\C\\' . ucfirst($this->controller) . 'C';
+		$class = 'app\C\\' . ucfirst($this->controller) . 'C';
 
 		$controller = new $class();
 		if(method_exists($controller, $action))
